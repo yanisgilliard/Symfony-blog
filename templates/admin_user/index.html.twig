@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}User index{% endblock %}
+
+{% block body %}
+    <h1>Utilisateurs</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Email</th>
+                <th>Utilisateur vérifié</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+            <tr>
+                <td>{{ user.id }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.isVerified ? 'Yes' : 'No' }}</td>
+                <td>
+                    <a href="{{ path('app_admin_user_show', {'id': user.id}) }}">Consulter</a>
+                    <a href="{{ path('app_admin_user_edit', {'id': user.id}) }}">Modifier</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_admin_user_new') }}">Creer un nouvel utilisateur</a>
+{% endblock %}
